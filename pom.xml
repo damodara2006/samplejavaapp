@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>com.devopsdemo.tutorial</groupId>
     <artifactId>sampleapp</artifactId>
-    <packaging>war</packaging>
     <version>2.0</version>
+    <packaging>war</packaging>
     <name>Vaadin Sampleapp example</name>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <vaadin.version>24.1.0</vaadin.version>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
-	<jacoco.version>0.8.11</jacoco.version>
+        <jacoco.version>0.8.11</jacoco.version>
     </properties>
 
     <repositories>
@@ -24,14 +27,12 @@
     </repositories>
 
     <dependencies>
-        <!-- Vaadin Dependencies -->
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>vaadin</artifactId>
             <version>${vaadin.version}</version>
         </dependency>
 
-        <!-- Servlet API -->
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
@@ -39,7 +40,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Logging -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
@@ -51,7 +51,6 @@
             <version>2.20.0</version>
         </dependency>
 
-        <!-- Testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -59,7 +58,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Commons -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -68,16 +66,26 @@
     </dependencies>
 
     <build>
+        <finalName>sampleapp</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
+                    <release>21</release>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -106,25 +114,21 @@
                                 <rule>
                                     <element>BUNDLE</element>
                                     <limits>
-                                        <!-- Line Coverage -->
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
                                             <minimum>0.50</minimum>
                                         </limit>
-                                        <!-- Branch Coverage -->
                                         <limit>
                                             <counter>BRANCH</counter>
                                             <value>COVEREDRATIO</value>
                                             <minimum>0.50</minimum>
                                         </limit>
-                                        <!-- Method Coverage -->
                                         <limit>
                                             <counter>METHOD</counter>
                                             <value>COVEREDRATIO</value>
                                             <minimum>0.50</minimum>
                                         </limit>
-                                        <!-- Class Coverage -->
                                         <limit>
                                             <counter>CLASS</counter>
                                             <value>COVEREDRATIO</value>
@@ -133,7 +137,6 @@
                                     </limits>
                                 </rule>
                             </rules>
-                            <!-- Exclude Vaadin UI classes from coverage -->
                             <excludes>
                                 <exclude>com/devopsdemo/tutorial/addressbook/AddressbookUI*</exclude>
                             </excludes>
